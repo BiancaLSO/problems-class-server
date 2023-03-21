@@ -5,15 +5,20 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
+import { UserEntity } from './user';
 
 @Entity()
-export class UserEntity {
+export class TenantEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  username: string;
+  name: string;
 
   @Column()
-  password: string;
+  email: string;
+
+  @OneToOne(() => UserEntity)
+  @JoinColumn()
+  user: UserEntity;
 }

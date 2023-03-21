@@ -6,6 +6,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Problem } from './problem/entities/problem.entity';
 import { ProblemsModule } from './problem/problem.module';
 import { AuthModule } from './authentication/auth.module';
+import { UserEntity } from './authentication/entities/user';
+import { TenantEntity } from './authentication/entities/tenant';
+import { BoardMemberEntity } from './authentication/entities/boardmember';
 
 @Module({
   imports: [
@@ -20,7 +23,7 @@ import { AuthModule } from './authentication/auth.module';
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
         autoLoadEntities: true,
-        entities: [Problem],
+        entities: [Problem, UserEntity, TenantEntity, BoardMemberEntity],
         synchronize: true, // Setting synchronize: true shouldn't be used in production - otherwise you can lose production data.
       }),
       inject: [ConfigService],

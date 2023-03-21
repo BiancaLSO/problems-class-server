@@ -9,8 +9,22 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signup(user: any) {
-    return this.usersService.create(user.username, user.password);
+  async signupTenant(user: any) {
+    return this.usersService.createTenant(
+      user.username,
+      user.password,
+      user.name,
+      user.email,
+    );
+  }
+
+  async signupBoardMember(user: any) {
+    return this.usersService.createTenant(
+      user.username,
+      user.password,
+      user.name,
+      user.phone,
+    );
   }
 
   async validateUser(username: string, pass: string): Promise<any> {

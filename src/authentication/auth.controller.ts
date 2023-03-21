@@ -3,6 +3,7 @@ import {
   Post,
   UseGuards,
   Request as Request2,
+  Response,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
@@ -18,8 +19,13 @@ export class AuthController {
   }
 
   // @UseGuards(LocalAuthGuard)
-  @Post('auth/signup')
-  async signup(@Request2() req) {
-    return this.authService.signup(req.body);
+  @Post('auth/signup/tenant')
+  async signupTenant(@Request2() req) {
+    return this.authService.signupTenant(req.body);
+  }
+
+  @Post('auth/signup/boardmember')
+  async signupBoarMember(@Request2() req) {
+    return this.authService.signupBoardMember(req.body);
   }
 }
