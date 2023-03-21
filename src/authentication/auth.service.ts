@@ -19,7 +19,7 @@ export class AuthService {
   }
 
   async signupBoardMember(user: any) {
-    return this.usersService.createTenant(
+    return this.usersService.createBoardMember(
       user.username,
       user.password,
       user.name,

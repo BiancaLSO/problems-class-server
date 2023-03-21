@@ -8,6 +8,7 @@ import { Repository } from 'typeorm';
 // This should be a real class/interface representing a user entity
 export type User = any;
 export type Tenant = any;
+export type BoardMember = any;
 
 @Injectable()
 export class UsersService {
@@ -52,10 +53,14 @@ export class UsersService {
     password: string,
     name: string,
     phone: string,
-  ): Promise<Tenant> {
+  ): Promise<BoardMember> {
     const user = await this.userRepository.save({ username, password });
 
-    const tenant = this.tenantRepository.save({ name, phone, userId: user.id });
-    return tenant;
+    const boardmember = this.boardMemberRepository.save({
+      name,
+      phone,
+      userId: user.id,
+    });
+    return boardmember;
   }
 }
