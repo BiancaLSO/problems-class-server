@@ -24,9 +24,14 @@ export class ProblemsService {
     return this.problemRepository.findOneBy({ id: id });
   }
 
-  // update(id: number, updateProblemDto: UpdateProblemDto) {
-  //   return `This action updates a #${id} problem`;
-  // }
+  async update(
+    id: number,
+    updateProblemDto: UpdateProblemDto,
+  ): Promise<Problem> {
+    await this.problemRepository.update({ id }, { ...updateProblemDto });
+    const updateProblem = await this.problemRepository.findOneBy({ id: id });
+    return updateProblem;
+  }
 
   remove(id: number) {
     return this.problemRepository.delete(id);

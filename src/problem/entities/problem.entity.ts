@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { UserEntity } from 'src/authentication/entities/user';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Problem {
@@ -10,4 +11,7 @@ export class Problem {
 
   @Column()
   description: string;
+
+  @ManyToOne(() => UserEntity, (user) => user.problems)
+  user: UserEntity;
 }

@@ -18,6 +18,13 @@ export class AuthController {
     return this.authService.login(req.user);
   }
 
+  // @Post('auth/signup')
+  // async signup(@Request2() req) {
+  //   console.log('body', req.body);
+
+  //   return this.authService.signup(req.body);
+  // }
+
   // @UseGuards(LocalAuthGuard)
   @Post('auth/signup/tenant')
   async signupTenant(@Request2() req) {

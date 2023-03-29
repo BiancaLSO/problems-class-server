@@ -27,6 +27,10 @@ export class UsersService {
     return this.userRepository.findOneBy({ username: username });
   }
 
+  async findById(id: number): Promise<UserEntity> {
+    return this.userRepository.findOneBy({ id: id });
+  }
+
   async findTenants(): Promise<TenantEntity[]> {
     const tenants = await this.tenantRepository.find({
       relations: {
@@ -34,6 +38,15 @@ export class UsersService {
       },
     });
     return tenants;
+  }
+
+  async findBoardMembers(): Promise<BoardMemberEntity[]> {
+    const boardmember = await this.boardMemberRepository.find({
+      relations: {
+        user: true,
+      },
+    });
+    return boardmember;
   }
 
   async createTenant(
