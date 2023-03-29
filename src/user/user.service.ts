@@ -57,7 +57,7 @@ export class UsersService {
   ): Promise<Tenant> {
     const user = await this.userRepository.save({ username, password });
 
-    const tenant = this.tenantRepository.save({ name, email, userId: user.id });
+    const tenant = this.tenantRepository.save({ name, email, user: user });
     return tenant;
   }
 
@@ -72,7 +72,7 @@ export class UsersService {
     const boardmember = this.boardMemberRepository.save({
       name,
       phone,
-      userId: user.id,
+      user: user,
     });
     return boardmember;
   }

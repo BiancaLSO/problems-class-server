@@ -44,6 +44,7 @@ export class AuthService {
       id: user.id,
       tenantId: user.tenant.id,
     };
+    console.log(payload);
     return {
       access_token: this.jwtService.sign(payload),
     };
