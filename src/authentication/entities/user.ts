@@ -7,6 +7,7 @@ import {
   OneToOne,
 } from 'typeorm';
 import { Role } from '../roles/role.enum';
+import { BoardMemberEntity } from './boardmember';
 import { TenantEntity } from './tenant';
 
 @Entity()
@@ -22,6 +23,9 @@ export class UserEntity {
 
   @OneToOne((type) => TenantEntity, (tenant) => tenant.user)
   tenant: TenantEntity | null;
+
+  @OneToOne((type) => BoardMemberEntity, (boardmember) => boardmember.user)
+  boardmember: BoardMemberEntity | null;
 
   @OneToMany(() => Problem, (problem) => problem.user)
   problems: Problem[];

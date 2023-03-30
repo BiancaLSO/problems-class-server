@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { UsersService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
 
@@ -39,6 +39,11 @@ export class AuthService {
   }
 
   async login(user: any) {
+    console.log('AuthService login(): user =', user);
+    // if (!user) {
+    //   console.log('Console log din login cu user ' + user);
+    //   throw new BadRequestException('Invalid user object');
+    // }
     const payload = {
       username: user.username,
       id: user.id,

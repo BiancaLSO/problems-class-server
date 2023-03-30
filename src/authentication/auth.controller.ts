@@ -3,7 +3,6 @@ import {
   Post,
   UseGuards,
   Request as Request2,
-  Response,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
