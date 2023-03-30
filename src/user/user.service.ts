@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { BoardMemberEntity } from 'src/authentication/entities/boardmember';
 import { TenantEntity } from 'src/authentication/entities/tenant';
 import { UserEntity } from 'src/authentication/entities/user';
+import { Role } from 'src/authentication/roles/role.enum';
 import { Repository } from 'typeorm';
 
 // This should be a real class/interface representing a user entity
@@ -55,9 +56,13 @@ export class UsersService {
     name: string,
     email: string,
   ): Promise<Tenant> {
-    const user = await this.userRepository.save({ username, password });
+    const user = await this.userRepository.save({
+      username,
+      password,
+      role: Role.User,
+    });
 
-    const tenant = this.tenantRepository.save({ name, email, user: user });
+    const tenant = this.tenantRepository.save({ name, email, user });
     return tenant;
   }
 
@@ -67,12 +72,16 @@ export class UsersService {
     name: string,
     phone: string,
   ): Promise<BoardMember> {
-    const user = await this.userRepository.save({ username, password });
+    const user = await this.userRepository.save({
+      username,
+      password,
+      role: Role.Admin,
+    });
 
     const boardmember = this.boardMemberRepository.save({
       name,
       phone,
-      user: user,
+      user,
     });
     return boardmember;
   }

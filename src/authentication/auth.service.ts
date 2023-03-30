@@ -1,6 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { UsersService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
+import { UserEntity } from './entities/user';
+import { Role } from './roles/role.enum';
 
 @Injectable()
 export class AuthService {
@@ -38,18 +40,38 @@ export class AuthService {
     return null;
   }
 
-  async login(user: any) {
-    console.log('AuthService login(): user =', user);
-    // if (!user) {
-    //   console.log('Console log din login cu user ' + user);
-    //   throw new BadRequestException('Invalid user object');
-    // }
-    const payload = {
+  // async login(user: any) {
+  //   console.log('AuthService login(): user =', user);
+  //   // if (!user) {
+  //   //   console.log('Console log din login cu user ' + user);
+  //   //   throw new BadRequestException('Invalid user object');
+  //   // }
+  //   const payload = {
+  //     username: user.username,
+  //     id: user.id,
+  //     tenantId: user.tenant.id,
+  //   };
+  //   console.log(payload);
+  //   return {
+  //     access_token: this.jwtService.sign(payload),
+  //   };
+  // }
+
+  async login(user: UserEntity) {
+    let role = Role.User;
+    let payload: any = {
       username: user.username,
       id: user.id,
-      tenantId: user.tenant.id,
+      role: role,
     };
-    console.log(payload);
+
+    if (user.tenant) {
+      payload.tenantId = user.tenant.id;
+    } else if (user.boardmember) {
+      role = Role.Admin;
+      payload.boardId = user.boardmember.id;
+    }
+
     return {
       access_token: this.jwtService.sign(payload),
     };
