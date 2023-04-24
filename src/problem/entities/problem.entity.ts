@@ -12,6 +12,9 @@ export class Problem {
   @Column()
   description: string;
 
+  @Column({ nullable: true })
+  imageUrl: string;
+
   @ManyToOne(() => UserEntity, (user) => user.problems)
   user: UserEntity;
 }

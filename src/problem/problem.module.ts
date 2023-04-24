@@ -10,6 +10,7 @@ import { UserEntity } from 'src/authentication/entities/user';
 import { TenantEntity } from 'src/authentication/entities/tenant';
 import { BoardMemberEntity } from 'src/authentication/entities/boardmember';
 import { UsersModule } from 'src/user/user.module';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { UsersModule } from 'src/user/user.module';
     ]),
     AuthModule,
     UsersModule,
+    HttpModule,
   ],
   controllers: [ProblemsController],
   providers: [ProblemsService, UsersService, AdminGuard],
